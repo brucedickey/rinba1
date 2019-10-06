@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Rinba</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <noscript>This web page requires that JavaScript 2015/ES6 is available add enabled. 
+                Please check your browser and browser settings.</noscript>
+
+    <nav class="navbar navbar-dark navbar-expand fixed-top">    <!-- navbar-expand-sm -->
+        <div class="container">
+
+            <span class="navbar-brand mr-auto fa fa-th-large" id="logo"></span>
+
+            <div class="collapse navbar-collapse ml-3" id="Navbar">
+                <ul class="navbar-nav mr-auto">                       <!-- Margin-Right auto (pushes left as much as possible) -->
+                    <span class="display-4" id="title">Rinba</span>
+                </ul>
+
+                <span class="navbar-text ml-4">
+                    <a class="clickable" id="howto-button"> 
+                        <span class="fa fa-question-circle d-inline d-sm-none" title="How to play"></span>
+                        <span class="d-none d-sm-inline">How to Play</span>
+                    </a>
+                </span>
+
+                <span class="d-none"> <!-- Envisioned for later... --->
+                <span class="navbar-text ml-4">
+                    <a class="clickable" id="settings-button"> 
+                        <span class="fa fa-gear d-inline d-sm-none" title="Settings"></span>
+                        <span class="d-none d-sm-inline">Settings</span>
+                    </a>
+                </span>
+                </span>
+
+                <span class="navbar-text ml-4">
+                    <a class="clickable" id="about-button"> 
+                        <span class="fa fa-info-circle d-inline d-sm-none" title="About Rinba"></span>
+                        <span class="d-none d-sm-inline">About</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div id="howto-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" role="content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How To Play</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h6>RULES</h6>
+                    <ol>
+                        <li class="rinba-text">Take turns moving one piece as far as it can go in a stright line in any 
+                            open direction without moving over another piece or occupying a square 
+                            already taken. You may move between diagonally-adjacent pieces. To move 
+                            a piece, click it (a "+" is added to it) and then the destination square. Legal
+                            destination squares are highlighted with a light green target.
+                        </li>
+                        <li class="rinba-text">To win, position your pieces so that no two are adjacent. For example, 
+                            pieces on squares a1 and b2 would be adjacent, but pieces on a1 and a3 
+                            would not be.
+                        </li>                        
+                        <li class="rinba-text">It is illegal to use <span class="font-italic">your</span> pieces to
+                            surround an <span class="font-italic">unoccupied</span> corner square and you will not be
+                            permitted to move into that position. For example, placing your pieces on squares a2, b2, 
+                            and b1 would surround corner square a1. The reason for this rule is that without it a draw 
+                            could be forced by always moving your remaining fourth piece. It is permitted that a
+                            mixture of blue and orange pieces surround an unocupied corner square.
+                        </li>
+                    </ol>
+
+                    <h6 class="mt-5">GAME PLAY</h6>
+                    <p class="rinba-text">In this implementation, two persons take turns playing. Play against the 
+                        computer is envisioned for a later version. The blue pieces always move first.
+                    </p>
+
+                    <div class="d-none"> <!-- Envisioned for later... -->
+                    <p class="rinba-text">Either you or the computer can move first. You will play the blue circles, and the
+                    computer will use the orange squares.</p>
+                    <ul>
+                        <li class="rinba-text">If you want to move first, click a blue circle and then the destination 
+                            square.</li>
+                        <li class="rinba-text">If you want the computer to move first, click the Force Computer Move 
+                            button.</li>
+                    </ul>
+                    <p class="rinba-text">If at any time it is the computer's move and you want it to move immediately, 
+                       click the Force Computer Move button.</p>
+                    </div>
+
+                    <p class="rinba-text">To reset/abort the game (whether it is finished or not), click the Reset Game
+                       button.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-none"> <!-- Envisioned for later when a game engine is implemented on the server... -->
+    <div id="settings-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" role="content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Settings</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h6>COMPUTER LIMITS</h6>
+                    <p class="rinba-text ml-3">Adjust these to affect the difficulty of play.</p>
+                    <form class="ml-3">
+                        <div class="form-group row">
+                            <legend class="rinba-text col-form-label col-12 col-sm-12 col-md-6">Maximum number computer look-ahead moves</legend>
+                            <div class="col-12 col-sm-12 col-md-3">
+                                <input type="text" class="form-control" id="look-ahead" 
+                                       name="look-ahead" placeholder="8">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <legend class="rinba-text col-form-label col-12 col-sm-12 col-md-6">Maximum search time in seconds or mm:ss or hh:mm:ss</legend>
+                            <div class="col-12 col-sm-12 col-md-3">
+                                <input type="text" class="form-control" id="search-time" 
+                                        name="search-time" placeholder="60">
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-sm ml-1" id="settings-save-button">Save And Close</button>        
+                        </div>                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="about-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" role="content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">About Rinba v1.0</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <h6>INTRODUCTION</h6>
+                    <p class="rinba-text"> The name "Rinba" is a mash-up of "rings" and "balls" -- wooden ones were used 
+                        as the first physical game board locations and playing pieces. As you can see, this game can be 
+                        played on a quarter of a checker-board, or at a camp site using stones.
+                    </p>
+
+                    <p class="rinba-text">I invented Rinba in 2006 and implemented it on the 
+                        <a href="http://www.zillions-of-games.com/" target="_blank">Zillions</a> 
+                        platform which may be purchased for $24.98 (Rinba not included). If you take a look, the 
+                        Zillions engine takes a .zrf (zillions rules file) written in Lisp. For Rinba this is a 
+                        very short file. 
+                    </p>   
+
+                    <h6>SOURCE</h6>
+                    <p class="rinba-text">Source files for this web app are available at rinba.bitbucket.io</p>
+
+                    <h6>COPYRIGHT</h6>
+                    <p class="rinba-text">The "Rinba" name and game rules shown in the <span class="font-italic">
+                        How To Play</span> modal dialog, including Rule 3 as an option, are 
+                        Copyright 2006, Bruce Allen Dickey, All Rights Reserved.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="rinba-container">
+            <div class="rinba">
+                <div class="column">
+                    <span class="square"            id="a4"> <label class="ref" data-title="a4"></label> </span>
+                    <span class="square"            id="a3"> <label class="ref" data-title="a3"></label> </span>
+                    <span class="square"            id="a2"> <label class="ref" data-title="a2"></label> </span>
+                    <span class="square bdr-bottom" id="a1"> <label class="ref" data-title="a1"></label> </span>
+                </div>
+                <div class="column">
+                    <span class="square"            id="b4"> <label class="ref" data-title="b4"></label> </span>
+                    <span class="square"            id="b3"> <label class="ref" data-title="b3"></label> </span>
+                    <span class="square"            id="b2"> <label class="ref" data-title="b2"></label> </span>
+                    <span class="square bdr-bottom" id="b1"> <label class="ref" data-title="b1"></label> </span>
+                </div>
+                <div class="column">
+                    <span class="square"            id="c4"> <label class="ref" data-title="c4"></label> </span>
+                    <span class="square"            id="c3"> <label class="ref" data-title="c3"></label> </span>
+                    <span class="square"            id="c2"> <label class="ref" data-title="c2"></label> </span>
+                    <span class="square bdr-bottom" id="c1"> <label class="ref" data-title="c1"></label> </span>
+                </div>
+                <div class="column">
+                    <span class="square bdr-right"            id="d4"> <label class="ref" data-title="d4"></label> </span>
+                    <span class="square bdr-right"            id="d3"> <label class="ref" data-title="d3"></label> </span>
+                    <span class="square bdr-right"            id="d2"> <label class="ref" data-title="d2"></label> </span>
+                    <span class="square bdr-right bdr-bottom" id="d1"> <label class="ref" data-title="d1"></label> </span>
+                </div>
+            </div>
+        </div>
+        <form class=rinba-ctrls>
+            <div class="text-center">
+                <p class="rinba-notification" id="notification-line1">Blue, it's your turn.</p>
+            </div>
+            <div class="text-center">
+                <p class="rinba-notification" id="notification-line2">Click piece then destination square.</p>
+            </div>
+            <!-- For later... <button class="btn rinba-btn" id="force-btn">Force Computer Move</button> -->
+            <button class="btn rinba-btn" id="reset-btn">Reset Game</button>
+        </form>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+</body>
+</html> 

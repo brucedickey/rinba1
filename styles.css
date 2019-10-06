@@ -1,0 +1,192 @@
+/* styles.css */
+
+body {
+    padding: 50px 0 0 0;
+    z-index: 0;
+}
+
+.navbar-dark {
+    /* Bootstrap 4 default blue "primary" is #0069D9 */
+    background-color: darkblue;   /* Darker */
+}
+
+/*
+.row-header {
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+.row-content {
+    margin: 0 auto;
+    padding: 50px 0 50px 0;    
+    border-bottom: 1px ridge;
+    min-height: 400px;
+}
+
+.footer {
+    margin: 0 auto;
+    padding: 20px 0 20 0;
+    background-color: #D1C4E9;
+}
+*/
+
+.clickable {
+    cursor: pointer;
+}
+
+#logo {
+    font-size: 20px;
+}
+#title, .display-4 {
+    /* "display-4" overrides Bootstrap 4 */
+    color: white;
+    font-size: 20px;
+}
+
+@media only screen and (min-width: 321px) {  /* Larger than iPhone5 */
+    #logo {
+        font-size: 32px;
+    }
+    #title, .display-4 {
+        /* "display-4" overrides Bootstrap 4 */
+        color: white;
+        font-size: 34px;
+    }
+}
+
+/* Gameboard layout adapted from https://codepen.io/radibit/pen/LVzgvP */
+.rinba-container {
+    margin-top: 50px;
+    margin-bottom: 10px;
+
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    vertical-align  : center;
+    flex-wrap       : wrap;
+    align-content   : center;
+  
+    font-family     : 'Open Sans', sans-serif;
+}
+
+.rinba {
+    display         : flex;
+    justify-content : space-between;
+} 
+.column {
+    display         : flex;
+    flex-direction  : column;
+    justify-content : space-between;
+  }
+  
+.square {
+    display: block;
+    width:   65px;
+    height:  65px;
+    padding: 0px;
+    margin:  0px;
+    border-left:      1px solid black;
+    border-top:       1px solid black;
+    color:            black;
+    background-color: beige;
+    font-size:        0.7rem;
+    font-weight:      100;
+    cursor:    pointer;     /* TODO -- only leagal move squares */
+  }
+
+.ref, .ref-populated {
+    position: relative;
+}
+.ref:before {
+  content:    attr(data-title);
+  background: inherit;
+  color:    #333;
+  position:   absolute;
+  left:       3px;       
+  top:        -6px;      /* Empty squares */
+}
+.ref-populated:before {
+    content:    attr(data-title);
+    background: inherit;
+    color:    #333;
+    position:   absolute;
+    left:       3px;       
+    top:        -35px;   /* Populated squares */
+}
+.bdr-right {
+    border-right: 1px solid black;
+}
+.bdr-bottom {
+    border-bottom: 1px solid black;
+}
+
+form.rinba-ctrls {
+    width: 265px;
+    display: block;        
+    margin: auto;
+    padding: 0;
+}
+
+.rinba-text {
+    font-size: 0.9rem;  
+}
+.rinba-notification {
+    display:   block;
+    width:     265px;
+    margin:    5px 0 0 0;
+    font-size: 0.9rem;
+}
+.rinba-btn {
+    width:            265px;
+    margin:           10px 0 0 0;
+    color:           white;
+}
+.rinba-btn:hover {
+    color:           white;
+}
+#force-btn {
+    background-color: rgb(235, 130, 1);
+}
+#force-btn:hover {
+    background-color: rgb(224, 144, 46);
+}
+#reset-btn {
+    background-color:#3a5ccc;
+}
+#reset-btn:hover {
+    background-color:#5d77cc;
+}
+
+.blu {
+    /* Human's playing set */
+    font-size: 3rem;
+    position:  relative;
+    top:       8px;
+    left:      8px;
+    color:   darkblue;
+    cursor:    pointer;
+}
+.blu:hover {
+    color:  rgb(56, 77, 170);
+}
+.ora {
+    /* Computer's playing set */
+    font-size: 3rem;
+    position:  relative;
+    top:       8px;
+    left:      8px;
+    color:   rgb(235, 130, 1);
+    cursor:    pointer;
+}
+.ora:hover {
+    color:   rgb(233, 144, 36);
+}
+.hint {
+    /* Legal destination targets that are shown when a piece is selected */
+    font-size: 3rem;
+    position:  relative;
+    top:       8px;
+    left:      8px;
+    color:   rgba(0,150,0,0.3);
+    cursor:    pointer;  
+}
