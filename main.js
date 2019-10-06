@@ -50,8 +50,7 @@ const win_quadrants = {         // For a win:
 
 // Players have sets of playing pieces identified by 'crc' and 'sqr'.
 var move_list  = [];        // ["b4,a4", "c3,b4", ...]
-var move_num   = 1;
-var move_count = 0;         // Increment after both sides have moved.
+var move_count = 1;         // Increment after both sides have moved.
 var game_state = 'reset';   // Or 'playing', 'blu_won', 'ora_won'
 var whose_turn = 'blu';
 var src_square = '';
@@ -66,8 +65,7 @@ var allowed_search_moves   = 8;
 
 var init_vars = function() {
     move_list  = [];
-    move_num   = 1; 
-    move_count = 0;          // Incremented after both sides have moved.
+    move_count = 1;          // Incremented after both sides have moved.
     game_state = 'reset';    // Or 'playing', 'blu_won', 'ora_won'.
     whose_turn = 'blu';      // Or 'ora'; names of playing piece sets.
     src_square = '';
