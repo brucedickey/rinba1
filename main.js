@@ -50,7 +50,7 @@ const win_quadrants = {         // For a win:
 
 // Players have sets of playing pieces identified by 'crc' and 'sqr'.
 var move_list  = [];        // ["b4,a4", "c3,b4", ...]
-var move_count = 1;         // Increment after both sides have moved.
+var move_count = 0;         // Increment after both sides have moved.
 var game_state = 'reset';   // Or 'playing', 'blu_won', 'ora_won'
 var whose_turn = 'blu';
 var src_square = '';
@@ -65,7 +65,7 @@ var allowed_search_moves   = 8;
 
 var init_vars = function() {
     move_list  = [];
-    move_count = 1;          // Incremented after both sides have moved.
+    move_count = 0;          // Incremented after both sides have moved.
     game_state = 'reset';    // Or 'playing', 'blu_won', 'ora_won'.
     whose_turn = 'blu';      // Or 'ora'; names of playing piece sets.
     src_square = '';
@@ -127,6 +127,10 @@ $('.square').click(function(e) {
 
             var win = check_for_win(board, whose_turn);             
             if (win) {
+                // 'ora' has not moved yet, so increment move_count for 'blu' for the win notification.
+                if (whose_turn === 'blu') {
+                    move_count += 1;
+                }
                 announce_win();
             }
             else {
