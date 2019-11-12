@@ -9,11 +9,11 @@
 /* globals $ */
 /* globals _ */
 
-const corners     = ['a1', 'a4', 'd1', 'd4'];
-const non_corners = ['a3', 'a2', 'b4','b3', 'b2', 'b1', 'c4','c3', 'c2', 'c1', 'd3', 'd2'];
-const all_squares = ['a4', 'a3', 'a2', 'a1', 'b4','b3', 'b2', 'b1', 'c4','c3', 'c2', 'c1', 'd4', 'd3', 'd2', 'd1'];
+const CORNERS     = ['a1', 'a4', 'd1', 'd4'];
+const NON_CORNERS = ['a3', 'a2', 'b4','b3', 'b2', 'b1', 'c4','c3', 'c2', 'c1', 'd3', 'd2'];
+const ALL_SQUARES = ['a4', 'a3', 'a2', 'a1', 'b4','b3', 'b2', 'b1', 'c4','c3', 'c2', 'c1', 'd4', 'd3', 'd2', 'd1'];
 
-const potential_moves_lists = {
+const POTENTIAL_MOVES_LISTS = {
     'a1': [ ['a2','a3','a4'], ['b2','c3','d4'], ['b1','c1','d1'] ],
     'a2': [ ['a3',' a4'],     ['b3','c4'],      ['b2','c2','d2'], ['b1'],      ['a1'] ],
     'a3': [ ['a4'],           ['b4'],           ['b3','c3','d3'], ['b2','c1'], ['a2','a1'] ],
@@ -34,7 +34,7 @@ const potential_moves_lists = {
     'd3': [ ['d4'],           ['d2','d1'],      ['c2','b1'],     ['c3','b3','a3'], ['c4'] ],
     'd4': [ ['d3','d2','d1'], ['c3','b2','a1'], ['c4','b4','a4'] ],                
 };
-const win_quadrants = {         // For a win:
+const WIN_QUADRANTS = {         // For a win:
     0: ['a1','a2','b1','b2'],   // * Must have exactly 1 piece in these first 4 quadrants.
     1: ['a3','a4','b3','b4'],
     2: ['c1','c2','d1','d2'],
@@ -115,7 +115,7 @@ $('#about-button').click(function(e) {
 $('.square').click(function(e) { 
     // Move the selected piece, if any, to the clicked square if it is a legal destination for the piece. 
     // Then switch the turn to the other player. 
-    if (src_square != '') {
+    if (src_square !== '') {
         dest_square = e.currentTarget.id;
 
         if (legal_dest_squares.includes(dest_square)) {
@@ -254,18 +254,16 @@ var init_board = function() {
     $('.blu').remove();
     $('.ora').remove();
 
-    ['a4','a3', 'a2', 'a1', 'd4','d3', 'd2', 'd1'].forEach(function(loc) {
+    ['a4','a3', 'a2', 'a1', 'd4','d3', 'd2', 'd1'].forEach( (loc) => {
         $('#' + loc + ' label').removeClass('ref-populated').addClass('ref');
         board[loc] = '';   // Initially unoccupied
     });
-    whose_turn = 'ora';
-    ['c4','c3', 'c2', 'c1'].forEach(function(loc){
-        place_piece(whose_turn, loc);
-    });
-    whose_turn = 'blu';
-    ['b4','b3', 'b2', 'b1'].forEach(function(loc){
-        place_piece(whose_turn, loc);
-    });
+    
+    // Set up ora's pieces
+    ['c4','c3', 'c2', 'c1'].forEach( (loc) => {place_piece('ora', loc)} );
+
+    // Set up blu's pieces
+    ['b4','b3', 'b2', 'b1'].forEach( (loc) => {place_piece('blu', loc)} );
 };
 
 var place_piece = function(whose_turn, loc) {
@@ -292,7 +290,7 @@ var place_dest_hints = function() {
 };
 
 var remove_hints = function() {
-    let keys = _.keys(board);
+    let keys = Object.keys(board);
     for (let square of keys) {
         if (board[square] === '') {
             $('#' + square + ' label').removeClass('ref-populated').addClass('ref');
@@ -320,7 +318,7 @@ var get_legal_dest_squares = function(the_board, src_square) {
     // on the square passed in. 
 
     let these_legal_dest_squares = [];
-    let potential_piece_moves_lists = potential_moves_lists[src_square];
+    let potential_piece_moves_lists = POTENTIAL_MOVES_LISTS[src_square];
 
     for (let piece_moves_list of potential_piece_moves_lists) {
         // Now have a move list in one compass direction.
@@ -350,7 +348,7 @@ var is_legal_move = function(src_square, dest_square, the_board) {
     // If dest square is any but a4, a1, d4, d1, then check that
     //  1) these corner squares are NOT empty and
     //  2) not ALL the other non corner squares are occupied by the current set
-    if (non_corners.includes(dest_square)) {
+    if (NON_CORNERS.includes(dest_square)) {
         if (!is_legal_corner_move(['a2', 'b2', 'b1'], ['a1'], src_square, dest_square, the_board)) return false; 
         if (!is_legal_corner_move(['a3', 'b3', 'b4'], ['a4'], src_square, dest_square, the_board)) return false;
         if (!is_legal_corner_move(['d3', 'c3', 'c4'], ['d4'], src_square, dest_square, the_board)) return false;
@@ -377,12 +375,12 @@ var is_legal_corner_move = function(surrounding_squares, corner_square, src_squa
 
 var check_for_win = function(the_board, cur_whose_turn) {
     // Win == exactly one piece in each of the corner quadrants, and
-    //        zero or one piece in each of the other sets of four squares in `win_quadrants`.
+    //        zero or one piece in each of the other sets of four squares in `WIN_QUADRANTS`.
     let win = true;
-    let quadrants_keys = _.keys(win_quadrants);
+    let quadrants_keys = Object.keys(WIN_QUADRANTS);
 
     for (let i = 0; i < quadrants_keys.length; i++) {
-        let quadrant_squares = win_quadrants[quadrants_keys[i]];
+        let quadrant_squares = WIN_QUADRANTS[quadrants_keys[i]];
         let count = 0;
 
         for (let j = 0; j < quadrant_squares.length; j++) {

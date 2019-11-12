@@ -91,7 +91,7 @@ body {
     background-color: beige;
     font-size:        0.7rem;
     font-weight:      100;
-    cursor:    pointer;     /* TODO -- only leagal move squares */
+    cursor:           pointer;     /* TODO -- only legal move squares */
   }
 
 .ref, .ref-populated {
@@ -100,7 +100,7 @@ body {
 .ref:before {
   content:    attr(data-title);
   background: inherit;
-  color:    #333;
+  color:      #333;
   position:   absolute;
   left:       3px;       
   top:        -6px;      /* Empty squares */
@@ -108,7 +108,7 @@ body {
 .ref-populated:before {
     content:    attr(data-title);
     background: inherit;
-    color:    #333;
+    color:      #333;
     position:   absolute;
     left:       3px;       
     top:        -35px;   /* Populated squares */
@@ -163,7 +163,7 @@ form.rinba-ctrls {
     position:  relative;
     top:       8px;
     left:      8px;
-    color:   darkblue;
+    color:     darkblue;
     cursor:    pointer;
 }
 .blu:hover {
@@ -175,7 +175,7 @@ form.rinba-ctrls {
     position:  relative;
     top:       8px;
     left:      8px;
-    color:   rgb(235, 130, 1);
+    color:     rgb(235, 130, 1);
     cursor:    pointer;
 }
 .ora:hover {
@@ -187,6 +187,6 @@ form.rinba-ctrls {
     position:  relative;
     top:       8px;
     left:      8px;
-    color:   rgba(0,150,0,0.3);
+    color:     rgba(0,150,0,0.3);
     cursor:    pointer;  
 }
