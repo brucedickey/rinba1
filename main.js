@@ -48,7 +48,7 @@ const WIN_QUADRANTS = {         // For a win:
 };
 
 
-// Players have sets of playing pieces identified by 'crc' and 'sqr'.
+// Players have sets of playing pieces identified by 'blu' (Blue) and 'ora' (Orange).
 var move_list  = [];        // ["b4,a4", "c3,b4", ...]
 var move_count = 0;         // Increment after both sides have moved.
 var game_state = 'reset';   // Or 'playing', 'blu_won', 'ora_won'
@@ -425,6 +425,5 @@ var announce_next_turn = function() {
 
 
 $(document).ready(function(){
-
     reset();
 });
